@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head><title>Задачи</title></head>
+<body>
+  <h2>Список задач</h2>
+  <ul>
+    {% for task in tasks %}
+      <li>
+        {{ task }}
+        <form method="POST" action="/send_email">
+          <input type="hidden" name="task" value="{{ task }}">
+          <input type="email" name="email" placeholder="Введите email" required>
+          <button type="submit">Отправить по email</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  <br>
+  <a href="/check_imap">Проверить почту (IMAP)</a><br>
+  <a href="/check_pop3">Проверить почту (POP3)</a>
+</body>
+</html>
